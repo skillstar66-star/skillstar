@@ -1,0 +1,1166 @@
+/* ═══════════════════════════════════════════════════════════════════
+   VYRA Growth Labs — mobile.css
+   Responsive: 768px → 280px (Galaxy Z Fold 5 inner screen)
+   Apply via: <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
+═══════════════════════════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────
+   BASE RESET
+──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  cursor: auto !important;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  cursor: auto !important;
+}
+
+/* Kill custom cursor */
+#cur-dot,
+#cur-ring {
+  display: none !important;
+}
+
+/* Kill decorative fixed overlays */
+.sn-num-fixed,
+.sn-dots-fixed,
+.scroll-label,
+.explore-mouse,
+.bottom-glow,
+.analyzing-card {
+  display: none !important;
+}
+
+/* ════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════ */
+nav {
+  padding: 0 16px !important;
+  height: 58px !important;
+}
+
+.nav-links {
+  display: none !important;
+}
+
+.nav-right {
+  flex-shrink: 0;
+}
+
+.nav-btn {
+  padding: 9px 16px !important;
+  font-size: 9px !important;
+  letter-spacing: 1px !important;
+  gap: 0 !important;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.nav-btn svg {
+  display: none !important;
+}
+
+.logo-name {
+  font-size: 15px !important;
+  letter-spacing: 3px !important;
+}
+
+.logo-tag {
+  font-size: 7px !important;
+}
+
+/* ════════════════════════════════════════
+   HERO SECTION
+════════════════════════════════════════ */
+#hero {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100svh !important;
+  padding-top: 58px !important;
+  grid-template-columns: unset !important;
+  overflow: hidden;
+}
+
+#three-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0.4;
+}
+
+.hero-content {
+  position: relative !important;
+  z-index: 10;
+  padding: 32px 20px 24px 20px !important;
+  order: 1;
+  flex: none;
+}
+
+.hero-panel {
+  border-left: none !important;
+  border-top: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  padding: 20px 20px 24px 20px !important;
+  order: 2;
+  flex: none;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+
+.india-tooltip {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 0 0 16px 0 !important;
+  display: inline-flex !important;
+  flex-direction: column !important;
+  gap: 2px;
+  padding: 10px 14px !important;
+  width: fit-content;
+}
+
+.india-tooltip::before {
+  display: none !important;
+}
+
+.hero-badge {
+  font-size: 8px !important;
+  letter-spacing: 2px !important;
+  padding: 8px 14px !important;
+  margin-bottom: 20px !important;
+  opacity: 1 !important;
+}
+
+.hero-h1 {
+  font-size: clamp(34px, 9vw, 54px) !important;
+  line-height: .9 !important;
+  margin-bottom: 16px !important;
+  opacity: 1 !important;
+}
+
+.hero-sub {
+  font-size: 12px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 26px !important;
+  max-width: 100% !important;
+  opacity: 1 !important;
+}
+
+.hero-btns {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin-top: 0 !important;
+  opacity: 1 !important;
+}
+
+.btn-control .txt {
+  padding: 13px 22px !important;
+  font-size: 10px !important;
+}
+
+.btn-control .icon-box {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.btn-watch {
+  padding: 10px 14px !important;
+}
+
+.btn-watch .txt {
+  font-size: 9px !important;
+}
+
+.btn-watch .play-circle {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.kpi-card {
+  padding: 13px 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.kpi-val {
+  font-size: 26px !important;
+}
+
+.kpi-lbl {
+  font-size: 8px !important;
+}
+
+.kpi-delta {
+  font-size: 10px !important;
+}
+
+.spark {
+  width: 64px !important;
+  height: 22px !important;
+}
+
+.live-tag {
+  opacity: 1 !important;
+  transform: none !important;
+  margin-bottom: 12px;
+}
+
+.sys-panel {
+  opacity: 1 !important;
+}
+
+.sys-k,
+.sys-v {
+  font-size: 10px !important;
+}
+
+/* Brands strip */
+.brands-strip {
+  padding: 18px 16px !important;
+  grid-column: unset !important;
+  order: 3;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.brands-label {
+  font-size: 8px !important;
+  margin-bottom: 12px !important;
+}
+
+.brands-row {
+  gap: 24px !important;
+  flex-wrap: nowrap !important;
+  width: max-content;
+}
+
+.brand {
+  font-size: 14px !important;
+}
+
+/* ════════════════════════════════════════
+   SHARED SECTION
+════════════════════════════════════════ */
+.section-inner {
+  padding: 80px 16px 56px 16px !important;
+}
+
+.sec-eyebrow {
+  opacity: 1 !important;
+  transform: none !important;
+  font-size: 8px !important;
+}
+
+.sec-heading {
+  font-size: clamp(36px, 10vw, 58px) !important;
+  line-height: .94 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.sec-desc {
+  font-size: 13px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  max-width: 100% !important;
+  margin-bottom: 24px !important;
+}
+
+.sec-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+  margin-bottom: 32px !important;
+  grid-template-columns: unset !important;
+}
+
+.sec-action {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.outline-btn {
+  font-size: 9px !important;
+  padding: 10px 18px !important;
+}
+
+/* ════════════════════════════════════════
+   SERVICES
+════════════════════════════════════════ */
+.services-grid,
+.services-grid-row2 {
+  display: flex !important;
+  flex-direction: row !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x mandatory !important;
+  gap: 16px !important;
+  padding: 10px 4px 20px 4px !important;
+  margin-bottom: 20px !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Hide scrollbars but keep functionality */
+.services-grid::-webkit-scrollbar,
+.services-grid-row2::-webkit-scrollbar {
+  display: none !important;
+}
+
+.svc {
+  flex: 0 0 280px !important;
+  scroll-snap-align: start !important;
+  padding: 20px 16px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  border-radius: 18px !important;
+}
+
+.svc-3d {
+  height: 100px !important;
+  border-radius: 12px !important;
+}
+
+.svc-title {
+  font-size: 15px !important;
+}
+
+.svc-desc {
+  font-size: 11.5px !important;
+}
+
+.svc-icon-wrap {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+}
+
+.svc-icon-wrap svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.svc-number {
+  font-size: 10px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Stats bar */
+.stats-bar {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  border-radius: 18px !important;
+  margin-top: 20px !important;
+  overflow: hidden;
+}
+
+.stat-tagline {
+  grid-column: 1 / -1 !important;
+  border-right: none !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding: 16px !important;
+}
+
+.st-label {
+  font-size: 8px !important;
+}
+
+.st-sub {
+  font-size: 11px !important;
+}
+
+.stat-item {
+  padding: 16px 12px !important;
+  gap: 10px !important;
+  border-left: 1px solid var(--border) !important;
+}
+
+.stat-item:nth-child(2) {
+  border-left: none !important;
+}
+
+.si-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.si-num {
+  font-size: 26px !important;
+}
+
+.si-lbl {
+  font-size: 8px !important;
+}
+
+/* ════════════════════════════════════════
+   PROCESS — HOLOGRAM GLOBE FIX
+════════════════════════════════════════ */
+.process-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  min-height: unset !important;
+}
+
+/* Globe container — fixed height, no overflow */
+.holo-beam-wrap {
+  width: 100% !important;
+  height: 280px !important;
+  border-radius: 18px !important;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative !important;
+}
+
+/* Three.js canvas inside globe */
+#holo-3d-canvas {
+  width: 180px !important;
+  height: 180px !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -56%) !important;
+  position: absolute !important;
+}
+
+/* SVG beam fills box */
+#holo-svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Service pills */
+.svc-btn-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-bottom: 20px !important;
+}
+
+.svc-btn {
+  padding: 8px 12px !important;
+}
+
+.svc-btn-title {
+  font-size: 11px !important;
+}
+
+.svc-btn-icon {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.svc-btn-icon svg {
+  width: 11px !important;
+  height: 11px !important;
+}
+
+/* Process flip card */
+.flip-card-wrap,
+.flip-card {
+  height: 320px !important;
+  width: 100% !important;
+}
+
+.flip-card-front,
+.flip-card-back {
+  padding: 24px 20px !important;
+}
+
+.fcp-title {
+  font-size: 20px !important;
+}
+
+.fcp-desc {
+  font-size: 12px !important;
+}
+
+.fcard-service-num {
+  font-size: 56px !important;
+}
+
+.process-right-header h3 {
+  font-size: 11px !important;
+}
+
+.process-right-header p {
+  font-size: 12px !important;
+}
+
+/* ════════════════════════════════════════
+   CLIENTS — FLIP CARDS
+════════════════════════════════════════ */
+.clients-flip-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+  justify-content: unset !important;
+  flex-wrap: unset !important;
+  margin-top: 20px !important;
+}
+
+.flip-shell {
+  width: 100% !important;
+  height: 320px !important;
+}
+
+.flip-front-logo {
+  width: 72px !important;
+  height: 72px !important;
+  font-size: 22px !important;
+  border-radius: 16px !important;
+}
+
+.flip-front-name {
+  font-size: 17px !important;
+  letter-spacing: 1.5px !important;
+}
+
+.flip-front-tag {
+  font-size: 8px !important;
+}
+
+.flip-front-poster {
+  padding: 24px 14px 12px !important;
+}
+
+.flip-back {
+  padding: 22px 18px !important;
+}
+
+.flip-back-name {
+  font-size: 16px !important;
+}
+
+.flip-back-role {
+  font-size: 9px !important;
+}
+
+.flip-back-quote {
+  font-size: 11.5px !important;
+  line-height: 1.65 !important;
+}
+
+.flip-back-quote::before {
+  font-size: 36px !important;
+}
+
+/* ════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════ */
+.projects-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  margin-bottom: 24px !important;
+}
+
+.prj {
+  opacity: 1 !important;
+  transform: none !important;
+  border-radius: 18px !important;
+}
+
+.prj-vis {
+  height: 160px !important;
+  border-radius: 18px 18px 0 0 !important;
+}
+
+.prj-body {
+  padding: 14px !important;
+}
+
+.prj-title {
+  font-size: 17px !important;
+}
+
+.prj-desc {
+  font-size: 11px !important;
+}
+
+.prj-cat {
+  font-size: 8px !important;
+}
+
+/* ════════════════════════════════════════
+   TESTIMONIALS — MARQUEE
+════════════════════════════════════════ */
+.testi-marquee-wrap {
+  padding: 20px 0 !important;
+}
+
+.testi-marquee-wrap::before,
+.testi-marquee-wrap::after {
+  width: 60px !important;
+}
+
+#testimonials {
+  min-height: auto !important;
+}
+
+#testimonials .section-inner {
+  padding-top: 40px !important;
+  padding-bottom: 0px !important;
+}
+
+#faq .section-inner {
+  padding-top: 32px !important;
+}
+
+.testi-profile-ring {
+  width: 72px !important;
+  height: 72px !important;
+}
+
+.testi-profile-img {
+  font-size: 18px !important;
+}
+
+.testi-profile-name {
+  font-size: 11px !important;
+}
+
+.testi-profile-co {
+  font-size: 8px !important;
+}
+
+/* Review modal */
+.review-modal-bg {
+  padding: 12px !important;
+}
+
+.review-modal {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 32px 18px !important;
+  border-radius: 22px !important;
+}
+
+.rm-avatar {
+  width: 64px !important;
+  height: 64px !important;
+  font-size: 22px !important;
+}
+
+.rm-name {
+  font-size: 18px !important;
+}
+
+.rm-review {
+  font-size: 13px !important;
+  line-height: 1.75 !important;
+}
+
+.rm-review::before {
+  font-size: 48px !important;
+}
+
+/* ════════════════════════════════════════
+   CONTACT SECTION
+════════════════════════════════════════ */
+#contact {
+  min-height: unset !important;
+  align-items: flex-start !important;
+}
+
+.contact-inner {
+  padding: 60px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 32px !important;
+  grid-template-columns: unset !important;
+  width: 100% !important;
+}
+
+.contact-heading {
+  font-size: clamp(38px, 11vw, 60px) !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.contact-sub {
+  font-size: 13px !important;
+  margin-top: 12px !important;
+  max-width: 100% !important;
+  opacity: 1 !important;
+}
+
+.contact-form {
+  gap: 12px !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.form-row {
+  grid-template-columns: 1fr !important;
+  gap: 12px !important;
+}
+
+.form-input,
+.form-select {
+  font-size: 13px !important;
+  padding: 11px 14px !important;
+  border-radius: 12px !important;
+}
+
+.form-submit {
+  padding: 13px !important;
+  font-size: 10px !important;
+  border-radius: 999px !important;
+}
+
+/* Contact popup */
+.contact-popup-bg {
+  padding: 16px !important;
+}
+
+.contact-popup {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 28px 18px !important;
+  border-radius: 20px !important;
+}
+
+.popup-heading {
+  font-size: 24px !important;
+}
+
+.popup-sub {
+  font-size: 12px !important;
+}
+
+.popup-actions {
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.popup-btn-primary,
+.popup-btn-skip {
+  width: 100% !important;
+  padding: 13px !important;
+  font-size: 10px !important;
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer {
+  padding: 20px 16px !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  text-align: center !important;
+}
+
+/* Single-column footer layout on mobile */
+.footer-container {
+  grid-template-columns: 1fr !important;
+  gap: 28px !important;
+  text-align: center !important;
+}
+
+.footer-brand,
+.footer-contact,
+.footer-socials-col {
+  width: 100% !important;
+  align-items: center !important;
+}
+
+.footer-socials {
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+}
+
+.footer-contact-list {
+  align-items: center !important;
+  list-style: none !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.footer-bottom {
+  text-align: center !important;
+  padding: 14px 12px !important;
+}
+
+.footer-links {
+  gap: 18px !important;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-size: 10px !important;
+}
+
+.footer-copy {
+  font-size: 10px !important;
+}
+
+/* About/Cases page footer */
+.footer {
+  padding: 18px 16px !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  text-align: center !important;
+}
+
+/* ════════════════════════════════════════
+   ABOUT PAGE
+════════════════════════════════════════ */
+main {
+  padding: 80px 16px 56px 16px !important;
+}
+
+.section-title {
+  font-size: clamp(36px, 10vw, 58px) !important;
+}
+
+.section-desc {
+  font-size: 13px !important;
+  line-height: 1.75 !important;
+  margin-bottom: 28px !important;
+}
+
+.grid {
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+}
+
+.card {
+  padding: 22px 18px !important;
+  border-radius: 20px !important;
+}
+
+.card h2 {
+  font-size: 20px !important;
+}
+
+.card p {
+  font-size: 12.5px !important;
+}
+
+.profile-block {
+  flex-direction: row !important;
+  gap: 14px !important;
+  align-items: center !important;
+}
+
+.profile-avatar {
+  width: 68px !important;
+  height: 68px !important;
+  font-size: 22px !important;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 16px !important;
+}
+
+.profile-role {
+  font-size: 10px !important;
+}
+
+.team-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  margin-top: 20px !important;
+}
+
+.team-card {
+  min-height: unset !important;
+  padding: 18px 14px !important;
+  border-radius: 18px !important;
+}
+
+.team-card h3 {
+  font-size: 15px !important;
+}
+
+.team-card p {
+  font-size: 11.5px !important;
+}
+
+.team-meta {
+  font-size: 8px !important;
+}
+
+.team-role {
+  font-size: 10px !important;
+}
+
+.team-services {
+  font-size: 11px !important;
+}
+
+/* ════════════════════════════════════════
+   CASES PAGE
+════════════════════════════════════════ */
+.case-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+
+.case-card {
+  padding: 20px 16px !important;
+  border-radius: 18px !important;
+}
+
+.case-card h3 {
+  font-size: 16px !important;
+}
+
+.case-card p {
+  font-size: 12px !important;
+}
+
+.case-card .case-tag {
+  font-size: 8px !important;
+}
+
+.case-card a {
+  font-size: 9px !important;
+}
+
+/* ════════════════════════════════════════
+   GALAXY Z FOLD 5 — ≤360px inner screen
+════════════════════════════════════════ */
+@media screen and (max-width: 360px) {
+
+  nav {
+    padding: 0 10px !important;
+    height: 52px !important;
+  }
+
+  .logo-name {
+    font-size: 13px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .logo-tag {
+    display: none !important;
+  }
+
+  .nav-btn {
+    padding: 8px 10px !important;
+    font-size: 8px !important;
+  }
+
+  .hero-content {
+    padding: 22px 12px 18px 12px !important;
+  }
+
+  .hero-panel {
+    padding: 16px 12px 20px 12px !important;
+  }
+
+  .hero-h1 {
+    font-size: clamp(28px, 10vw, 40px) !important;
+  }
+
+  .hero-sub {
+    font-size: 11px !important;
+  }
+
+  .hero-badge {
+    font-size: 7px !important;
+    padding: 7px 10px !important;
+  }
+
+  .kpi-val {
+    font-size: 22px !important;
+  }
+
+  .kpi-lbl {
+    font-size: 7px !important;
+  }
+
+  .spark {
+    width: 50px !important;
+  }
+
+  .section-inner {
+    padding: 72px 12px 44px 12px !important;
+  }
+
+  main {
+    padding: 72px 12px 44px 12px !important;
+  }
+
+  .sec-heading {
+    font-size: clamp(28px, 11vw, 42px) !important;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 11vw, 40px) !important;
+  }
+
+  .services-grid,
+  .services-grid-row2 {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+
+  .svc {
+    flex: 0 0 240px !important;
+    padding: 18px 14px !important;
+  }
+
+  .svc-3d {
+    height: 90px !important;
+  }
+
+  .svc-title {
+    font-size: 14px !important;
+  }
+
+  /* Stats → 1 col */
+  .stats-bar {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stat-item {
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+  }
+
+  .si-num {
+    font-size: 22px !important;
+  }
+
+  /* Globe smaller */
+  .holo-beam-wrap {
+    height: 220px !important;
+  }
+
+  #holo-3d-canvas {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  /* Flip cards */
+  .flip-card-wrap,
+  .flip-card {
+    height: 270px !important;
+  }
+
+  .fcp-title {
+    font-size: 17px !important;
+  }
+
+  /* Clients → 1 col */
+  .clients-flip-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .flip-shell {
+    height: 290px !important;
+  }
+
+  /* Projects → 1 col */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .prj-vis {
+    height: 140px !important;
+  }
+
+  /* Cases → 1 col */
+  .case-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .case-card {
+    padding: 18px 14px !important;
+  }
+
+  .case-card h3 {
+    font-size: 14px !important;
+  }
+
+  /* Team → 1 col */
+  .team-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contact */
+  .contact-heading {
+    font-size: clamp(30px, 12vw, 48px) !important;
+  }
+
+  .contact-inner {
+    padding: 52px 12px !important;
+  }
+
+  /* About */
+  .card {
+    padding: 18px 14px !important;
+  }
+
+  .profile-avatar {
+    width: 56px !important;
+    height: 56px !important;
+    font-size: 18px !important;
+  }
+
+  /* Footer → single column */
+  footer,
+  .footer {
+    padding: 14px 12px !important;
+    font-size: 10px !important;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    text-align: center !important;
+  }
+
+  .footer-brand,
+  .footer-contact,
+  .footer-socials-col {
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  .footer-socials {
+    justify-content: center !important;
+  }
+
+  .footer-contact-list {
+    align-items: center !important;
+    list-style: none !important;
+    padding: 0 !important;
+  }
+
+  .footer-bottom {
+    text-align: center !important;
+    padding: 12px !important;
+  }
+
+  .brands-strip {
+    padding: 14px 12px !important;
+  }
+
+  .brand {
+    font-size: 12px !important;
+  }
+}

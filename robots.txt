@@ -1,0 +1,161 @@
+# =========================================================================
+# SKILLSTAR DIGITAL SOLUTIONS
+# CORE SERVICES PORTFOLIO:
+# - SEO, AEO, GEO (Search, Answer & Generative Engine Optimization)
+# - Digital Marketing
+# - Customer Service Solutions
+# - Video Editing & Production
+# - UI & UX Design
+# - Graphics Design
+# - Website Creation & Development
+# - AI Automation
+# =========================================================================
+
+User-agent: *
+Allow: /
+
+# =========================================================================
+# SITEMAP
+# =========================================================================
+Sitemap: https://www.skillstar.com/sitemap.xml
+
+# =========================================================================
+# CORE SERVICE DIRECTORIES (For Maximum Indexing Priority)
+# =========================================================================
+Allow: /services/seo-aeo-geo/
+Allow: /services/digital-marketing/
+Allow: /services/customer-service/
+Allow: /services/video-editing/
+Allow: /services/ui-ux-design/
+Allow: /services/graphics-design/
+Allow: /services/website-creation/
+Allow: /services/ai-automation/
+
+# =========================================================================
+# IMPORTANT PUBLIC PAGES
+# =========================================================================
+Allow: /index.html
+Allow: /gallery.html
+Allow: /videos.html
+Allow: /cases.html
+Allow: /seo-case-study.html
+
+# =========================================================================
+# PORTFOLIO & CASE STUDIES
+# =========================================================================
+Allow: /portfolio/
+Allow: /case-studies/
+Allow: /blog/
+Allow: /testimonials/
+
+# =========================================================================
+# MEDIA ASSETS (Images, Videos, Graphics)
+# =========================================================================
+Allow: /images/
+Allow: /assets/
+Allow: /media/
+Allow: /videos/
+
+# =========================================================================
+# BLOCK PRIVATE / UNNECESSARY PATHS
+# =========================================================================
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cache/
+Disallow: /cgi-bin/
+Disallow: /test/
+Disallow: /dev/
+Disallow: /api/
+Disallow: /config/
+
+# =========================================================================
+# BLOCK SENSITIVE FILE TYPES
+# =========================================================================
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.json$
+Disallow: /*.env$
+Disallow: /*.bak$
+
+# =========================================================================
+# CRAWL SETTINGS
+# =========================================================================
+Crawl-delay: 2
+
+# =========================================================================
+# GOOGLE BOTS
+# =========================================================================
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# =========================================================================
+# BING & MICROSOFT
+# =========================================================================
+User-agent: Bingbot
+Allow: /
+
+User-agent: MSNBot
+Allow: /
+
+# =========================================================================
+# AI ENGINES (GEO - Generative Engine Optimization)
+# =========================================================================
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# =========================================================================
+# SOCIAL MEDIA & OTHER CRAWLERS
+# =========================================================================
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# =========================================================================
+# END - SKILLSTAR DIGITAL SOLUTIONS
+# =========================================================================

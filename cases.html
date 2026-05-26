@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies — SkillStar Digital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile.css" media="screen and (max-width: 768px)">
+<style>
+:root {
+  --primary:    #1E3A8A;
+  --primary2:   #2563EB;
+  --primaryglow:rgba(30,58,138,.5);
+  --primarydim: rgba(30,58,138,.1);
+  --bg:         #000000;
+  --bg2:        #050510;
+  --card:       rgba(30,58,138,.04);
+  --border:     rgba(30,58,138,.18);
+  --text:       #ffffff;
+  --muted:      rgba(255,255,255,.45);
+  --accent:     #ffffff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+/* ── Neon Blue Arrow Cursor ── */
+*, *::before, *::after {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICA8ZmlsdGVyIGlkPSJnbG93Ij4KICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjEuMiIgcmVzdWx0PSJibHVyIi8+CiAgICA8ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImJsdXIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+CiAgPC9maWx0ZXI+CiAgPHBvbHlnb24gcG9pbnRzPSIyLDIgMiwyMCA3LDE1IDExLDIyIDEzLDIxIDksMTQgMTYsMTQiIAogICAgZmlsbD0iIzI1NjNFQiIgc3Ryb2tlPSIjNjBhNWZhIiBzdHJva2Utd2lkdGg9IjAuOCIgCiAgICBmaWx0ZXI9InVybCgjZ2xvdykiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+') 2 2, auto;
+}
+::selection{background:var(--primary);color:white;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid var(--border);background:rgba(0,0,8,.88);backdrop-filter:blur(22px);}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.logo-mark{width:28px;height:28px;position:relative;display:flex;align-items:center;justify-content:center;}
+.logo-mark::before,.logo-mark::after{content:'';position:absolute;background:var(--primary2);}
+.logo-mark::before{width:100%;height:2px;}
+.logo-mark::after{width:2px;height:100%;}
+.logo-mark-star{position:absolute;width:12px;height:12px;background:var(--primary2);transform:rotate(45deg);}
+.logo-name{font-family:'Syne',sans-serif;font-size:18px;letter-spacing:4px;color:#ffffff;font-weight:700;}
+.logo-tag{font-size:8px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.nav-links{display:flex;gap:40px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:600;transition:color .25s;}
+.nav-links a:hover{color:#ffffff;}
+.nav-btn{padding:12px 28px;background:transparent;color:#ffffff;border:1px solid rgba(30,58,138,.4);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color .3s,box-shadow .3s,background .3s;}
+.nav-btn:hover{border-color:var(--primary2);box-shadow:0 0 20px var(--primaryglow);background:rgba(30,58,138,.15);}
+section{position:relative;z-index:10;min-height:100vh;}
+.section-inner{padding:110px 80px 80px 80px;}
+.sec-eyebrow{display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.sec-eyebrow .pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--primary2);}
+.sec-heading{font-family:'Syne',sans-serif;font-size:clamp(56px,7vw,84px);line-height:.92;letter-spacing:2px;text-transform:uppercase;}
+.sec-heading .blue{color:var(--primary2);}
+.sec-desc{font-size:15px;line-height:1.8;color:var(--muted);font-weight:300;max-width:720px;margin-bottom:32px;}
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.case-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.22);}
+.case-card h3{font-family:'Syne',sans-serif;font-size:20px;margin-bottom:10px;}
+.case-card .case-tag{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--primary2);margin-bottom:12px;display:inline-block;}
+.case-card p{font-size:13px;line-height:1.75;color:var(--muted);margin-bottom:18px;}
+.case-card a{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:600;}
+.case-card a:hover{color:var(--primary2);}
+.footer{border-top:1px solid var(--border);padding:40px 80px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;}
+.footer a{color:var(--muted);text-decoration:none;}
+.footer a:hover{color:#ffffff;}
+@media (max-width:1160px){.case-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:760px){.nav-links{position:static;transform:none;flex-wrap:wrap;justify-content:center;padding-top:12px;}
+.section-inner{padding:110px 28px 80px 28px;}
+.case-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-mark"><div class="logo-mark-star"></div></div>
+    <div class="logo-wordmark">
+      <span class="logo-name">SkillStar</span>
+      <span class="logo-tag">Digital Solutions</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html" target="_blank">About</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#process">Our Process</a></li>
+    <li><a href="index.html#clients">Clients</a></li>
+    <li><a href="cases.html">Case Studies</a></li>
+    <li><a href="index.html#testimonials">Testimonials</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="index.html#contact" class="nav-btn">Launch Project <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+  </div>
+</nav>
+<section id="cases">
+  <div class="section-inner">
+    <div class="sec-eyebrow"><span class="pulse-dot"></span> Case Study Library</div>
+    <h1 class="sec-heading">All <span class="blue">Case Studies</span></h1>
+    <p class="sec-desc">Browse 12+ detailed cases that show how SkillStar delivered high-performance web development, automated intelligent operations, and accelerated long-term search engine visibility for growth-focused brands.</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-tag">Fintech</div>
+        <h3>NovaPay Technologies</h3>
+        <p>Scaled an engineering team from 40 to 160 in 6 months — DevOps, backend and security roles filled with under 72h TAT.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Retail</div>
+        <h3>Marq Retail Chain</h3>
+        <p>Built a 450-strong ops, logistics and finance team across 12 cities in 90 days, cutting hiring costs by 38%.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">HealthTech</div>
+        <h3>CureLink Labs</h3>
+        <p>Sourced 55 AI/ML engineers and data scientists in 45 days for a Series B health-AI startup. 100% offer acceptance.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Banking</div>
+        <h3>IndusCore Bank</h3>
+        <p>Delivered end-to-end talent build: 120 tech roles plus 80 finance and compliance specialists for a new digital banking unit.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">AI</div>
+        <h3>DataPulse AI</h3>
+        <p>Assembled a 30-person AI squad for a Series A launch in 8 weeks, including ML engineers, data scientists and MLOps experts.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">BFSI</div>
+        <h3>TrustEdge Capital</h3>
+        <p>Reduced hiring friction by 47% and stabilized a product launch with 85 cross-functional hires across engineering, controls and compliance.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Logistics</div>
+        <h3>FleetChain Ops</h3>
+        <p>Built a rapid recruiting engine for operations and supply chain, sourcing 170 hires in 10 weeks during peak season.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Consumer</div>
+        <h3>NovaStyle</h3>
+        <p>Delivered a growth team for a retail startup, closing 95 hires across design, product and customer success in under 12 weeks.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">SaaS</div>
+        <h3>ScaleFlow</h3>
+        <p>Helped a SaaS scale-up hire 60 engineers in 6 months, including frontend, backend, QA and release management roles.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">EdTech</div>
+        <h3>LearnGrid</h3>
+        <p>Set up a hybrid talent engine for product, growth and support teams to support 3x user growth in 90 days.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Health</div>
+        <h3>BioCore Labs</h3>
+        <p>Enabled a biotech launch with executive hires and a 42-person clinical operations team during the product rollout phase.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Enterprise</div>
+        <h3>CoreStack Systems</h3>
+        <p>Delivered a 90-person hiring blitz across engineering, product and customer success for an enterprise automation launch.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">Fintech</div>
+        <h3>PayBridge</h3>
+        <p>Closed a senior hiring sprint for finance, product and compliance leadership in 8 weeks ahead of a major funding round.</p>
+        <a href="index.html#contact">Read Case Study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div>SkillStar Digital Solutions &copy; 2026</div>
+  <div><a href="index.html">Home</a> · <a href="about.html">About</a></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Hero heading parallax ── */
+gsap.to('.sec-heading', {
+  scrollTrigger: { trigger: '#cases', start: 'top top', end: '50% top', scrub: 1 },
+  y: -50, ease: 'none'
+});
+gsap.to('.sec-desc', {
+  scrollTrigger: { trigger: '#cases', start: 'top top', end: '40% top', scrub: 1 },
+  y: -25, ease: 'none'
+});
+
+/* ── Case cards stagger reveal ── */
+gsap.fromTo('.case-card',
+  { opacity: 0, y: 50 },
+  { opacity: 1, y: 0, duration: 0.75, stagger: 0.07, ease: 'power3.out',
+    scrollTrigger: { trigger: '.case-grid', start: 'top 85%' } }
+);
+
+/* ── Case grid subtle parallax ── */
+gsap.to('.case-grid', {
+  scrollTrigger: { trigger: '.case-grid', start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+  y: -50, ease: 'none'
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+
+  /* â”€â”€ SIDE NAV â”€â”€ */
+  const sections = ['hero', 'about', 'services', 'process', 'clients', 'projects', 'testimonials', 'contact'];
+  const snNum = document.getElementById('sn-num');
+  sections.forEach((id, i) => {
+    ScrollTrigger.create({
+      trigger: '#' + id, start: 'top 50%', end: 'bottom 50%',
+      onEnter: () => setActive(i), onEnterBack: () => setActive(i)
+    });
+  });
+  function setActive(i) {
+    document.querySelectorAll('.sn-dot-f').forEach((d, j) => d.classList.toggle('active', j === i));
+    if (snNum) snNum.textContent = String(i + 1).padStart(2, '0');
+  }
+
+  /* â”€â”€ SECTION REVEALS â”€â”€ */
+  gsap.utils.toArray('.sec-eyebrow').forEach(el => { gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, opacity: 1, y: 0, duration: .7, ease: 'power3.out' }); });
+  gsap.utils.toArray('.sec-heading').forEach(el => { gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: .1 }); });
+  gsap.utils.toArray('.sec-desc').forEach(el => { gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: .2 }); });
+  gsap.utils.toArray('.sec-action').forEach(el => { gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, opacity: 1, x: 0, duration: .8, ease: 'power3.out', delay: .3 }); });
+
+  /* â”€â”€ HERO ENTRANCE â”€â”€ */
+  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  heroTl
+    .to('.hero-badge', { opacity: 1, y: 0, duration: .7 }, 0.3)
+    .to('.hero-h1', { opacity: 1, y: 0, duration: 1 }, 0.5)
+    .to('.hero-sub', { opacity: 1, y: 0, duration: .8 }, 0.75)
+    .to('.hero-btns', { opacity: 1, y: 0, duration: .8 }, 0.9)
+    .to('.live-tag', { opacity: 1, duration: .6 }, 0.4)
+    .to('.kpi-card', { opacity: 1, x: 0, duration: .7, stagger: .12 }, 0.6)
+    .to('.sys-panel', { opacity: 1, duration: .7 }, 1.1);
+
+  /* â”€â”€ SERVICE CARDS â”€â”€ */
+  gsap.to('.svc', { scrollTrigger: { trigger: '.services-grid', start: 'top 80%' }, opacity: 1, y: 0, stagger: .08, duration: .8, ease: 'power3.out' });
+  document.querySelectorAll('.svc').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      gsap.to(card, { rotateY: (e.clientX - r.left) / r.width * 8 - 4, rotateX: -((e.clientY - r.top) / r.height * 6 - 3), transformPerspective: 900, duration: .35, ease: 'power2.out' });
+    });
+    card.addEventListener('mouseleave', () => { gsap.to(card, { rotateY: 0, rotateX: 0, duration: .6, ease: 'elastic.out(1,.6)' }); });
+  });
+
+  /* â”€â”€ STATS COUNTERS â”€â”€ */
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    ScrollTrigger.create({
+      trigger: el, start: 'top 85%', onEnter: () => {
+        gsap.to({ v: 0 }, { v: target, duration: 2.2, ease: 'power2.out', onUpdate: function () { el.textContent = Math.round(this.targets()[0].v).toLocaleString() + suffix; } });
+      }
+    });
+  });
+
+  /* â”€â”€ PROJECT CARDS â”€â”€ */
+  gsap.to('.prj', { scrollTrigger: { trigger: '.projects-grid', start: 'top 80%' }, opacity: 1, y: 0, stagger: .1, duration: .9, ease: 'power3.out' });
+  document.querySelectorAll('.prj').forEach(card => {
+    card.addEventListener('mouseenter', () => gsap.to(card, { y: -6, duration: .3, ease: 'power2.out' }));
+    card.addEventListener('mouseleave', () => gsap.to(card, { y: 0, duration: .5, ease: 'elastic.out(1,.7)' }));
+  });
+
+  /* â”€â”€ CONTACT REVEAL â”€â”€ */
+  gsap.to('.contact-heading', { scrollTrigger: { trigger: '#contact', start: 'top 80%' }, opacity: 1, y: 0, duration: 1, ease: 'power3.out' });
+  gsap.to('.contact-sub', { scrollTrigger: { trigger: '#contact', start: 'top 78%' }, opacity: 1, y: 0, duration: .8, ease: 'power3.out', delay: .2 });
+  gsap.to('.contact-form', { scrollTrigger: { trigger: '#contact', start: 'top 78%' }, opacity: 1, x: 0, duration: .9, ease: 'power3.out', delay: .3 });
+
+  /* â”€â”€ MAGNETIC BUTTONS â”€â”€ */
+  document.querySelectorAll('.outline-btn,.nav-btn').forEach(el => {
+    el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); gsap.to(el, { x: (e.clientX - (r.left + r.width / 2)) * .18, y: (e.clientY - (r.top + r.height / 2)) * .18, duration: .4, ease: 'power2.out' }); });
+    el.addEventListener('mouseleave', () => gsap.to(el, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.5)' }));
+  });
+
+  /* â”€â”€ FORM ANIMATIONS â”€â”€ */
+  document.querySelectorAll('.form-input,.form-select').forEach(el => {
+    el.addEventListener('focus', () => gsap.to(el, { borderColor: '#2563EB', duration: .3 }));
+    el.addEventListener('blur', () => gsap.to(el, { borderColor: 'rgba(30,58,138,.2)', duration: .3 }));
+  });
+
+  /* â”€â”€ PARALLAX â”€â”€ */
+  gsap.to('.hero-content', { scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }, y: -100, ease: 'none' });
+  gsap.to('#three-canvas', { scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }, y: 50, ease: 'none' });
+  gsap.to('.hero-panel', { scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }, y: -30, ease: 'none' });
+  gsap.to('.brands-strip', { scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }, y: -150, ease: 'none' });
+
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     PROCESS â€” DIGITAL SERVICE SWITCHER (click handler â€” 3D handled by initHolo3D)
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     PROCESS â€” SERVICE SWITCHER + FLIP CARD
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  const svcData = {
+    branding: {
+      label: 'Branding Â· Identity',
+      title: 'Brand That Speaks Before You Do',
+      desc: 'We craft identities that command attention â€” logo systems, brand guidelines, tone of voice, and visual language that makes your brand unforgettable.',
+      tags: ['Logo Design', 'Brand Guidelines', 'Tone of Voice', 'Identity System'],
+      points: [
+        'Discovery & brand audit â€” understand where you stand',
+        'Positioning & messaging architecture',
+        'Visual identity creation â€” logo, palette, typography',
+        'Brand guidelines & full asset delivery',
+        'Launch kit with templates & rollout strategy'
+      ]
+    },
+    creative: {
+      label: 'Creative Â· Design',
+      title: 'Ideas That Stop the Scroll',
+      desc: 'From motion graphics to social content â€” our creative studio produces visual stories that cut through the noise and stay in memory.',
+      tags: ['Motion Graphics', 'Social Content', 'Art Direction', 'Campaigns'],
+      points: [
+        'Creative brief & concept ideation workshop',
+        'Art direction & visual mood-boarding',
+        'Content production â€” stills, reels, animations',
+        'Campaign assets across all formats & sizes',
+        'Performance creative A/B testing strategy'
+      ]
+    },
+    web: {
+      label: 'Web Â· Development',
+      title: 'Scalable Experiences Built to Perform',
+      desc: 'Pixel-perfect, lightning-fast web experiences built with React, Next.js & Node â€” SEO-optimized and engineered for conversion.',
+      tags: ['React', 'Next.js', 'Node.js', 'SEO', 'CRO'],
+      points: [
+        'Discovery, sitemap & UX wireframing',
+        'UI design system & prototype validation',
+        'Full-stack development & API integration',
+        'Performance & Core Web Vitals optimization',
+        'Ongoing maintenance, analytics & iteration'
+      ]
+    },
+    marketing: {
+      label: 'Marketing Â· Performance',
+      title: 'Growth-Engineered Campaigns',
+      desc: 'Data-driven campaigns across Meta, Google & LinkedIn â€” SEO, paid ads, and content strategy that compounds your growth month over month.',
+      tags: ['Meta Ads', 'Google Ads', 'SEO', 'Analytics', 'LinkedIn'],
+      points: [
+        'Audience research & competitor intelligence',
+        'Full-funnel campaign architecture & creative',
+        'Launch across paid search, social & programmatic',
+        'Real-time optimization with weekly performance reports',
+        'Scale winners, cut losers â€” compounding ROAS growth'
+      ]
+    },
+    retention: {
+      label: 'Retention Â· CRM',
+      title: 'Turn Customers Into Brand Advocates',
+      desc: 'Lifecycle marketing, CRM automation and loyalty engineering that keeps your customers coming back â€” and brings their network with them.',
+      tags: ['CRM Automation', 'Email', 'WhatsApp', 'Loyalty', 'LTV'],
+      points: [
+        'Customer journey mapping & segmentation strategy',
+        'CRM setup â€” Klaviyo, HubSpot, MoEngage',
+        'Automated drip flows: onboarding, cart, win-back',
+        'Loyalty program design & referral mechanics',
+        'LTV dashboards & churn prediction alerts'
+      ]
+    },
+    aivirtual: {
+      label: 'AI Virtual Style Â· Persona',
+      title: 'Your Brand, Powered by an AI Persona',
+      desc: 'We design and deploy AI-driven virtual brand ambassadors â€” animated avatars, voice personas, and AI influencers that engage 24/7.',
+      tags: ['AI Avatar', 'Voice Persona', 'Virtual Influencer', 'Generative AI'],
+      points: [
+        'Persona design â€” personality, look & voice',
+        'Generative AI avatar creation & animation',
+        'Multi-platform deployment: Reels, YouTube, Web',
+        'Script & content automation pipelines',
+        'Performance tracking & persona optimisation'
+      ]
+    },
+    aibot: {
+      label: 'AI Bot Â· Automation',
+      title: 'Intelligent Bots That Work While You Sleep',
+      desc: 'Custom AI chatbots and automation systems that handle leads, answer queries, qualify prospects, and close deals â€” round the clock.',
+      tags: ['Chatbot', 'WhatsApp Bot', 'Lead Qualification', 'GPT-4', 'Automation'],
+      points: [
+        'Workflow audit & automation opportunity mapping',
+        'Custom chatbot design â€” flows, intents & training',
+        'Integration: WhatsApp, Website, Instagram DMs',
+        'CRM sync & lead scoring automation',
+        'Live dashboard, feedback loops & retraining cycles'
+      ]
+    }
+  };
+
+  const svcNums = ['branding', 'creative', 'web', 'marketing', 'retention', 'aivirtual', 'aibot'];
+  const svcGlowColors = {
+    branding: 'rgba(255,215,0,.35)', creative: 'rgba(255,107,157,.35)', web: 'rgba(37,99,235,.35)',
+    marketing: 'rgba(52,211,153,.35)', retention: 'rgba(251,146,60,.35)', aivirtual: 'rgba(167,139,250,.35)', aibot: 'rgba(34,211,238,.35)'
+  };
+
+  document.querySelectorAll('.svc-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.svc;
+      const d = svcData[key];
+      if (!d) return;
+
+      // Active state
+      document.querySelectorAll('.svc-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Reset flip
+      const card = document.getElementById('svc-flip-card');
+      card.classList.remove('flipped');
+
+      // Update service number
+      const idx = svcNums.indexOf(key) + 1;
+      document.getElementById('fcard-num').textContent = String(idx).padStart(2, '0');
+
+      // Update glow orb color
+      const orb = document.getElementById('fcard-orb');
+      if (orb) orb.style.background = `radial-gradient(circle, ${svcGlowColors[key] || 'rgba(37,99,235,.35)'}, transparent 70%)`;
+
+      // Update front content
+      document.getElementById('flip-label').textContent = d.label;
+      document.getElementById('flip-title').textContent = d.title;
+      document.getElementById('flip-desc').textContent = d.desc;
+      const tagsEl = document.getElementById('flip-tags');
+      tagsEl.innerHTML = d.tags.map(t => `<span class="fcp-tag">${t}</span>`).join('');
+
+      // Update back content with numbered points
+      const pointsEl = document.getElementById('flip-points');
+      pointsEl.innerHTML = d.points.map((p, i) => `<li><span class="fcp-point-num">${String(i + 1).padStart(2, '0')}</span>${p}</li>`).join('');
+
+      // Animate front in
+      gsap.fromTo('.flip-card-front .fcard-content', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .45, ease: 'power3.out' });
+
+      // Update holo 3D
+      if (window.holoLoadService) window.holoLoadService(key);
+      gsap.to('#holo-orb', { attr: { r: 12 }, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.inOut' });
+    });
+  });
+
+  (function holoOrbPulse() { let t = 0; function tick() { t += 0.02; const o = document.getElementById('holo-orb-inner'); if (o) o.setAttribute('r', (3 + Math.sin(t * 2) * 1).toFixed(1)); requestAnimationFrame(tick); } tick(); })();
+
+  /* ────── THREE.JS HERO GLOBE ────── */
+  (function initHeroThree() {
+    const canvas = document.getElementById('three-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .1, 100);
+    camera.position.set(0, 0, 5);
+
+    const globeRadius = 2.0;
+    const dotsCount = 4000;
+    const positions = [], colors = [];
+    for (let i = 0; i < dotsCount; i++) {
+      const phi = Math.acos(-1 + (2 * i) / dotsCount);
+      const theta = Math.sqrt(dotsCount * Math.PI) * phi;
+      positions.push(globeRadius * Math.cos(theta) * Math.sin(phi), globeRadius * Math.sin(theta) * Math.sin(phi), globeRadius * Math.cos(phi));
+      const bright = Math.random() < .25;
+      colors.push(bright ? .6 : .1, bright ? .8 : .2, 1);
+    }
+    const dotsGeo = new THREE.BufferGeometry();
+    dotsGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    dotsGeo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    const dotsMat = new THREE.PointsMaterial({ size: .024, vertexColors: true, transparent: true, opacity: .9, blending: THREE.AdditiveBlending });
+    const globe = new THREE.Points(dotsGeo, dotsMat);
+    scene.add(globe);
+
+    const gridGeo = new THREE.SphereGeometry(globeRadius, 24, 24);
+    const gridMat = new THREE.MeshBasicMaterial({ color: 0x1E3A8A, wireframe: true, transparent: true, opacity: 0.08 });
+    const grid = new THREE.Mesh(gridGeo, gridMat);
+    scene.add(grid);
+
+    const atmoCount = 800;
+    const atmoPos = new Float32Array(atmoCount * 3);
+    for (let i = 0; i < atmoCount; i++) {
+      const r = 2.2 + Math.random() * 1.8, phi2 = Math.random() * Math.PI * 2, theta2 = Math.random() * Math.PI;
+      atmoPos[i * 3] = r * Math.sin(theta2) * Math.cos(phi2); atmoPos[i * 3 + 1] = r * Math.sin(theta2) * Math.sin(phi2); atmoPos[i * 3 + 2] = r * Math.cos(theta2);
+    }
+    const atmoGeo = new THREE.BufferGeometry();
+    atmoGeo.setAttribute('position', new THREE.Float32BufferAttribute(atmoPos, 3));
+    const atmoMat = new THREE.PointsMaterial({ size: .015, color: 0x2563EB, transparent: true, opacity: .35 });
+    const atmo = new THREE.Points(atmoGeo, atmoMat);
+    scene.add(atmo);
+
+    const glowGeo = new THREE.SphereGeometry(1.9, 32, 32);
+    const glowMat = new THREE.MeshBasicMaterial({ color: 0x1E3A8A, transparent: true, opacity: .05, side: THREE.BackSide });
+    const glow = new THREE.Mesh(glowGeo, glowMat);
+    scene.add(glow);
+
+    function updateResponsiveScale() {
+      const width = window.innerWidth;
+      let scale = 1.0;
+      if (width <= 480) {
+        scale = 0.45;
+      } else if (width <= 768) {
+        scale = 0.55;
+      } else if (width <= 1024) {
+        scale = 0.75;
+      } else {
+        scale = 1.0;
+      }
+      globe.scale.set(scale, scale, scale);
+      grid.scale.set(scale, scale, scale);
+      atmo.scale.set(scale, scale, scale);
+      glow.scale.set(scale, scale, scale);
+    }
+    updateResponsiveScale();
+
+    let t = 0, mx2 = 0, my2 = 0;
+    document.addEventListener('mousemove', e => { mx2 = (e.clientX / window.innerWidth - .5) * 2; my2 = -(e.clientY / window.innerHeight - .5) * 2; });
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      updateResponsiveScale();
+    });
+
+    (function render() {
+      t += .008;
+      globe.rotation.y = t; grid.rotation.y = t;
+      globe.rotation.x = Math.sin(t * .5) * .1; grid.rotation.x = Math.sin(t * .5) * .1;
+      camera.position.x += (mx2 * .6 - camera.position.x) * .05;
+      camera.position.y += (my2 * .6 - camera.position.y) * .05;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    })();
+  })();
+
+  /* â•â•â•â•â•â•â• PROCESS SECTION â€” THREE.JS 3D HOLOGRAM ICON â•â•â•â•â•â•â• */
+  (function initHolo3D() {
+    const canvas = document.getElementById('holo-3d-canvas');
+    if (!canvas) return;
+
+    const SIZE = 280;
+    canvas.width = SIZE; canvas.height = SIZE;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(SIZE, SIZE);
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+    camera.position.set(0, 0, 5);
+
+    // Service color map
+    const serviceColors = {
+      branding: 0xFFD700,
+      creative: 0xFF6B9D,
+      web: 0x64AAFF,
+      marketing: 0x34D399,
+      retention: 0xFB923C,
+      aivirtual: 0xA78BFA,
+      aibot: 0x22D3EE
+    };
+
+    // â”€â”€ Build geometries for each service â”€â”€
+    function makeEdgeMesh(geo, color) {
+      const edges = new THREE.EdgesGeometry(geo);
+      const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+      return new THREE.LineSegments(edges, mat);
+    }
+
+    function makePointCloud(positions, color, size = 0.05) {
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      const mat = new THREE.PointsMaterial({ color, size, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false });
+      return new THREE.Points(geo, mat);
+    }
+
+    function makeLine(pts, color, opacity = 0.9) {
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending });
+      return new THREE.Line(geo, mat);
+    }
+
+    // â”€â”€ 01 BRANDING: 3D Star burst / crown â”€â”€
+    function buildBranding(color) {
+      const g = new THREE.Group();
+      // Star points
+      const starPts = [];
+      for (let i = 0; i <= 10; i++) {
+        const a = i / 10 * Math.PI * 2 - Math.PI / 2;
+        const r = i % 2 === 0 ? 1.3 : 0.55;
+        starPts.push(new THREE.Vector3(r * Math.cos(a), r * Math.sin(a), 0));
+      }
+      g.add(makeLine(starPts, color, 0.9));
+      // Depth copy
+      const starPtsBack = starPts.map(p => new THREE.Vector3(p.x, p.y, -0.35));
+      g.add(makeLine(starPtsBack, color, 0.3));
+      // Connectors
+      for (let i = 0; i < 10; i += 2) {
+        g.add(makeLine([starPts[i], starPtsBack[i]], color, 0.2));
+      }
+      // Inner ring
+      const ringPts = [];
+      for (let i = 0; i <= 48; i++) { const a = i / 48 * Math.PI * 2; ringPts.push(new THREE.Vector3(0.5 * Math.cos(a), 0.5 * Math.sin(a), 0)); }
+      g.add(makeLine(ringPts, color, 0.5));
+      // Center orb
+      const orb = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9 }));
+      g.add(orb);
+      // Glow ring
+      const glowPts = [];
+      for (let i = 0; i <= 64; i++) { const a = i / 64 * Math.PI * 2; glowPts.push(new THREE.Vector3(1.8 * Math.cos(a), 1.8 * Math.sin(a), 0)); }
+      g.add(makeLine(glowPts, color, 0.15));
+      // Particles
+      const pp = [];
+      for (let i = 0; i < 80; i++) { const a = Math.random() * Math.PI * 2, r = 1.5 + Math.random() * 0.8; pp.push(r * Math.cos(a), (Math.random() - 0.5) * 2.5, r * Math.sin(a) * 0.3); }
+      g.add(makePointCloud(pp, color, 0.04));
+      return g;
+    }
+
+    // â”€â”€ 02 CREATIVE: 3D Color Palette â”€â”€
+    function buildCreative(color) {
+      const g = new THREE.Group();
+      // Palette outer shape â€” teardrop blob (approximated with bezier points)
+      const palPts = [];
+      for (let i = 0; i <= 64; i++) {
+        const a = i / 64 * Math.PI * 2;
+        // squished circle with thumb cutout hint
+        const rx = 1.15 + 0.12 * Math.cos(2 * a);
+        const ry = 1.25 + 0.08 * Math.sin(3 * a);
+        palPts.push(new THREE.Vector3(rx * Math.cos(a), ry * Math.sin(a) - 0.05, 0));
+      }
+      g.add(makeLine(palPts, color, 0.9));
+      // Depth copy
+      const palPtsB = palPts.map(p => new THREE.Vector3(p.x, p.y, -0.32));
+      g.add(makeLine(palPtsB, color, 0.25));
+      // Side connectors
+      [0, 16, 32, 48].forEach(i => { g.add(makeLine([palPts[i], palPtsB[i]], color, 0.15)); });
+
+      // Thumb hole (inner circle offset)
+      const thumbPts = [];
+      for (let i = 0; i <= 32; i++) { const a = i / 32 * Math.PI * 2; thumbPts.push(new THREE.Vector3(0.28 * Math.cos(a) + 0.55, 0.28 * Math.sin(a) + 0.7, 0)); }
+      g.add(makeLine(thumbPts, color, 0.55));
+
+      // Color dots â€” 5 paint wells arranged in arc
+      const dotPositions = [
+        [-0.65, 0.55], [-0.9, -0.1], [-0.55, -0.75],
+        [0.15, -0.95], [0.72, -0.52]
+      ];
+      dotPositions.forEach(([dx, dy], i) => {
+        const orb = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 10),
+          new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85 - (i * 0.06) }));
+        orb.position.set(dx, dy, 0.06); g.add(orb);
+        // ring around each dot
+        const rPts = [];
+        for (let j = 0; j <= 20; j++) { const a = j / 20 * Math.PI * 2; rPts.push(new THREE.Vector3(dx + 0.28 * Math.cos(a), dy + 0.28 * Math.sin(a), 0.06)); }
+        g.add(makeLine(rPts, color, 0.3));
+      });
+
+      // Brush stroke sweeping from palette
+      const brush = [];
+      for (let i = 0; i <= 24; i++) {
+        const t = i / 24;
+        brush.push(new THREE.Vector3(1.1 + t * 0.9, -0.2 + t * 0.6, 0));
+      }
+      g.add(makeLine(brush, color, 0.5));
+      // Brush tip dot
+      const btip = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }));
+      btip.position.set(2.0, 0.4, 0); g.add(btip);
+
+      // Particles
+      const pp = [];
+      for (let i = 0; i < 80; i++) { const a = Math.random() * Math.PI * 2, r = 1.6 + Math.random() * 0.9; pp.push(r * Math.cos(a), (Math.random() - 0.5) * 3, r * Math.sin(a) * 0.3); }
+      g.add(makePointCloud(pp, color, 0.038));
+      return g;
+    }
+
+    // â”€â”€ 03 WEB: </> code brackets â”€â”€
+    function buildWeb(color) {
+      const g = new THREE.Group();
+      const bmat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending });
+      function bracket(flip) {
+        const pts = [new THREE.Vector3(flip * 0.3, 0.9, 0), new THREE.Vector3(flip * -0.3, 0, 0), new THREE.Vector3(flip * 0.3, -0.9, 0)];
+        const geo = new THREE.BufferGeometry().setFromPoints(pts);
+        const line = new THREE.Line(geo, bmat);
+        const g2 = new THREE.BufferGeometry().setFromPoints(pts.map(p => new THREE.Vector3(p.x, p.y, p.z - 0.25)));
+        const line2 = new THREE.Line(g2, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending }));
+        const connPts = [pts[0], new THREE.Vector3(pts[0].x, pts[0].y, -0.25)];
+        const conn = new THREE.Line(new THREE.BufferGeometry().setFromPoints(connPts), new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending }));
+        const gg = new THREE.Group(); gg.add(line, line2, conn); return gg;
+      }
+      const lb = bracket(-1); lb.position.x = -1.1; g.add(lb);
+      const rb = bracket(1); rb.position.x = 1.1; g.add(rb);
+      const slashPts = [new THREE.Vector3(0.35, -0.85, 0), new THREE.Vector3(-0.35, 0.85, 0)];
+      g.add(makeLine(slashPts, color, 0.95));
+      g.add(makeLine(slashPts.map(p => new THREE.Vector3(p.x, p.y, -0.25)), color, 0.3));
+      const pp = [];
+      for (let i = 0; i < 80; i++) { const a = Math.random() * Math.PI * 2, r = 1.4 + Math.random() * 0.8; pp.push(r * Math.cos(a), (Math.random() - 0.5) * 2.5, r * Math.sin(a) * 0.4); }
+      g.add(makePointCloud(pp, color, 0.04));
+      return g;
+    }
+
+    // â”€â”€ 04 MARKETING: 3D bar chart + signal â”€â”€
+    function buildMarketing(color) {
+      const g = new THREE.Group();
+      const barHeights = [0.5, 0.9, 0.65, 1.2, 0.8, 1.4];
+      const barW = 0.28, gap = 0.45, startX = -1.2;
+      barHeights.forEach((h, i) => {
+        const x = startX + i * gap, baseY = -1.0;
+        const front = [new THREE.Vector3(x, baseY, 0), new THREE.Vector3(x + barW, baseY, 0), new THREE.Vector3(x + barW, baseY + h, 0), new THREE.Vector3(x, baseY + h, 0), new THREE.Vector3(x, baseY, 0)];
+        g.add(makeLine(front, color, 0.9));
+        const top = [new THREE.Vector3(x, baseY + h, 0), new THREE.Vector3(x + barW, baseY + h, 0), new THREE.Vector3(x + barW, baseY + h, -0.3), new THREE.Vector3(x, baseY + h, -0.3), new THREE.Vector3(x, baseY + h, 0)];
+        g.add(makeLine(top, color, 0.9));
+        [[x, baseY], [x + barW, baseY], [x, baseY + h], [x + barW, baseY + h]].forEach(([bx, by]) => {
+          g.add(makeLine([new THREE.Vector3(bx, by, 0), new THREE.Vector3(bx, by, -0.3)], color, 0.25));
+        });
+      });
+      const trendPts = barHeights.map((h, i) => new THREE.Vector3(startX + i * gap + barW / 2, -1.0 + h + 0.1, 0));
+      g.add(makeLine(trendPts, color, 0.6));
+      for (let a = 0; a < 3; a++) {
+        const arcPts = [];
+        for (let i = 0; i <= 20; i++) { const ang = -Math.PI / 4 + i / 20 * Math.PI / 2, r = 0.35 + a * 0.25; arcPts.push(new THREE.Vector3(0.9 + r * Math.cos(ang), 0.6 + r * Math.sin(ang), 0)); }
+        g.add(makeLine(arcPts, color, 0.5 - a * 0.12));
+      }
+      const sdot = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }));
+      sdot.position.set(0.9, 0.6, 0); g.add(sdot);
+      const pp = [];
+      for (let i = 0; i < 60; i++) { pp.push((Math.random() - 0.5) * 4.5, (Math.random() - 0.5) * 3.5, (Math.random() - 0.5) * 1.2); }
+      g.add(makePointCloud(pp, color, 0.035));
+      return g;
+    }
+
+    // â”€â”€ 05 RETENTION: 3D Heart â”€â”€
+    function buildRetention(color) {
+      const g = new THREE.Group();
+
+      // Heart outline using parametric heart curve
+      function heartPoint(t) {
+        // classic heart parametric: x=16sinÂ³t, y=13cos-5cos2t-2cos3t-cos4t (scaled)
+        const x = 0.9 * (Math.pow(Math.sin(t), 3));
+        const y = 0.75 * (0.8125 * Math.cos(t) - 0.3125 * Math.cos(2 * t) - 0.125 * Math.cos(3 * t) - 0.0625 * Math.cos(4 * t));
+        return { x: x * 1.7, y: y * 1.7 - 0.05 };
+      }
+      const heartFront = [], heartBack = [], steps = 80;
+      for (let i = 0; i <= steps; i++) {
+        const t = -Math.PI + i / steps * Math.PI * 2;
+        const { x, y } = heartPoint(t);
+        heartFront.push(new THREE.Vector3(x, y, 0));
+        heartBack.push(new THREE.Vector3(x, y, -0.38));
+      }
+      g.add(makeLine(heartFront, color, 0.95));
+      g.add(makeLine(heartBack, color, 0.28));
+      // Side depth connectors
+      [0, 10, 20, 40, 60].forEach(i => {
+        g.add(makeLine([heartFront[i], heartBack[i]], color, 0.18));
+      });
+
+      // Inner smaller heart (glow fill effect)
+      const heartInner = [];
+      for (let i = 0; i <= steps; i++) {
+        const t = -Math.PI + i / steps * Math.PI * 2;
+        const { x, y } = heartPoint(t);
+        heartInner.push(new THREE.Vector3(x * 0.5, y * 0.5, 0.05));
+      }
+      g.add(makeLine(heartInner, color, 0.4));
+
+      // Center glowing orb
+      const core = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 14),
+        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9 }));
+      core.position.set(0, 0.1, 0.06); g.add(core);
+
+      // Pulse ring
+      const pRing = [];
+      for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 2; pRing.push(new THREE.Vector3(0.5 * Math.cos(a), 0.1 + 0.5 * Math.sin(a), 0.06)); }
+      g.add(makeLine(pRing, color, 0.3));
+
+      // Loyalty loop arc â€” CRM symbol
+      const loopArc = [];
+      for (let i = 0; i <= 30; i++) {
+        const a = Math.PI * 0.1 + i / 30 * Math.PI * 1.4;
+        loopArc.push(new THREE.Vector3(1.55 + 0.38 * Math.cos(a), -0.7 + 0.38 * Math.sin(a), 0));
+      }
+      g.add(makeLine(loopArc, color, 0.55));
+      // Arrow tip on loop
+      const at = loopArc[loopArc.length - 1];
+      const at2 = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9 }));
+      at2.position.copy(at); g.add(at2);
+
+      // Sparkle dots orbiting heart
+      const pp = [];
+      for (let i = 0; i < 75; i++) { const a = Math.random() * Math.PI * 2, r = 1.8 + Math.random() * 0.9; pp.push(r * Math.cos(a), (Math.random() - 0.5) * 2.8, r * Math.sin(a) * 0.28); }
+      g.add(makePointCloud(pp, color, 0.038));
+      return g;
+    }
+
+    // â”€â”€ 06 AI VIRTUAL STYLE: 3D humanoid avatar silhouette â”€â”€
+    function buildAiVirtual(color) {
+      const g = new THREE.Group();
+      // Head circle
+      const headPts = [];
+      for (let i = 0; i <= 32; i++) { const a = i / 32 * Math.PI * 2; headPts.push(new THREE.Vector3(0.42 * Math.cos(a), 1.1 + 0.42 * Math.sin(a), 0)); }
+      g.add(makeLine(headPts, color, 0.9));
+      // Neck
+      g.add(makeLine([new THREE.Vector3(-0.1, 0.65, 0), new THREE.Vector3(-0.1, 0.5, 0)], color, 0.7));
+      g.add(makeLine([new THREE.Vector3(0.1, 0.65, 0), new THREE.Vector3(0.1, 0.5, 0)], color, 0.7));
+      // Shoulders & torso
+      const torso = [
+        new THREE.Vector3(-0.8, 0.45, 0), new THREE.Vector3(-0.55, 0.5, 0), new THREE.Vector3(-0.35, 0.42, 0),
+        new THREE.Vector3(-0.25, -0.55, 0), new THREE.Vector3(0.25, -0.55, 0), new THREE.Vector3(0.35, 0.42, 0),
+        new THREE.Vector3(0.55, 0.5, 0), new THREE.Vector3(0.8, 0.45, 0)
+      ];
+      g.add(makeLine(torso, color, 0.9));
+      // Arms
+      g.add(makeLine([new THREE.Vector3(-0.8, 0.45, 0), new THREE.Vector3(-1.1, -0.3, 0), new THREE.Vector3(-0.95, -0.7, 0)], color, 0.7));
+      g.add(makeLine([new THREE.Vector3(0.8, 0.45, 0), new THREE.Vector3(1.1, -0.3, 0), new THREE.Vector3(0.95, -0.7, 0)], color, 0.7));
+      // Legs
+      g.add(makeLine([new THREE.Vector3(-0.2, -0.55, 0), new THREE.Vector3(-0.3, -1.3, 0), new THREE.Vector3(-0.25, -1.7, 0)], color, 0.7));
+      g.add(makeLine([new THREE.Vector3(0.2, -0.55, 0), new THREE.Vector3(0.3, -1.3, 0), new THREE.Vector3(0.25, -1.7, 0)], color, 0.7));
+      // AI halo ring
+      const haloPts = [];
+      for (let i = 0; i <= 48; i++) { const a = i / 48 * Math.PI * 2; haloPts.push(new THREE.Vector3(0.75 * Math.cos(a), 1.1 + 0.75 * Math.sin(a) * 0.3, 0.1)); }
+      g.add(makeLine(haloPts, color, 0.4));
+      // Digital scan lines
+      for (let y = -1.6; y < 1.6; y += 0.35) {
+        g.add(makeLine([new THREE.Vector3(-1.3, y, 0), new THREE.Vector3(1.3, y, 0)], color, 0.05));
+      }
+      // Particles
+      const pp = [];
+      for (let i = 0; i < 80; i++) { pp.push((Math.random() - 0.5) * 3.5, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 0.8); }
+      g.add(makePointCloud(pp, color, 0.04));
+      return g;
+    }
+
+    // â”€â”€ 07 AI BOT: 3D robot head / chat bot â”€â”€
+    function buildAiBot(color) {
+      const g = new THREE.Group();
+      // Head box (front)
+      const headF = [
+        new THREE.Vector3(-0.9, 0.9, 0), new THREE.Vector3(0.9, 0.9, 0),
+        new THREE.Vector3(0.9, -0.6, 0), new THREE.Vector3(-0.9, -0.6, 0), new THREE.Vector3(-0.9, 0.9, 0)
+      ];
+      g.add(makeLine(headF, color, 0.9));
+      // Head depth
+      const headB = headF.map(p => new THREE.Vector3(p.x, p.y, -0.4));
+      g.add(makeLine(headB, color, 0.3));
+      [0, 1, 2, 3].forEach(i => { g.add(makeLine([headF[i], headB[i]], color, 0.2)); });
+      // Antenna
+      g.add(makeLine([new THREE.Vector3(0, 0.9, 0), new THREE.Vector3(0, 1.4, 0)], color, 0.9));
+      const antOrb = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }));
+      antOrb.position.set(0, 1.4, 0); g.add(antOrb);
+      // Eyes
+      [-0.32, 0.32].forEach(x => {
+        const eyePts = [];
+        for (let i = 0; i <= 24; i++) { const a = i / 24 * Math.PI * 2; eyePts.push(new THREE.Vector3(x + 0.18 * Math.cos(a), 0.25 + 0.18 * Math.sin(a), 0.01)); }
+        g.add(makeLine(eyePts, color, 0.95));
+        const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 }));
+        pupil.position.set(x, 0.25, 0.02); g.add(pupil);
+      });
+      // Mouth / speaker grill
+      for (let i = 0; i < 4; i++) {
+        g.add(makeLine([new THREE.Vector3(-0.3 + i * 0.2, -0.2, 0), new THREE.Vector3(-0.3 + i * 0.2, -0.42, 0)], color, 0.5));
+      }
+      // Neck & base
+      g.add(makeLine([new THREE.Vector3(-0.2, -0.6, 0), new THREE.Vector3(-0.2, -0.9, 0)], color, 0.7));
+      g.add(makeLine([new THREE.Vector3(0.2, -0.6, 0), new THREE.Vector3(0.2, -0.9, 0)], color, 0.7));
+      const base = [new THREE.Vector3(-0.6, -0.9, 0), new THREE.Vector3(0.6, -0.9, 0), new THREE.Vector3(0.6, -1.1, 0), new THREE.Vector3(-0.6, -1.1, 0), new THREE.Vector3(-0.6, -0.9, 0)];
+      g.add(makeLine(base, color, 0.9));
+      // Chat bubble rings (orbiting)
+      for (let r = 0; r < 2; r++) {
+        const bPts = [];
+        for (let i = 0; i <= 32; i++) { const a = i / 32 * Math.PI * 2; bPts.push(new THREE.Vector3((1.4 + r * 0.3) * Math.cos(a) * 0.6, (1.4 + r * 0.3) * Math.sin(a) * 0.6, 0)); }
+        g.add(makeLine(bPts, color, 0.15 - r * 0.05));
+      }
+      // Particles
+      const pp = [];
+      for (let i = 0; i < 75; i++) { pp.push((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 3.5, (Math.random() - 0.5) * 1.0); }
+      g.add(makePointCloud(pp, color, 0.04));
+      return g;
+    }
+
+    const builders = {
+      branding: buildBranding,
+      creative: buildCreative,
+      web: buildWeb,
+      marketing: buildMarketing,
+      retention: buildRetention,
+      aivirtual: buildAiVirtual,
+      aibot: buildAiBot
+    };
+    let currentGroup = null;
+    let targetOpacity = 1;
+    let currentOpacity = 0;
+    let floatT = 0;
+    let rotT = 0;
+
+    function loadService(key) {
+      const color = serviceColors[key] || 0x64AAFF;
+      const newGroup = builders[key](color);
+      newGroup.userData.opacity = 0;
+
+      // Fade out old
+      if (currentGroup) {
+        const old = currentGroup;
+        let fadeOut = setInterval(() => {
+          old.traverse(c => {
+            if (c.material) { c.material.opacity = Math.max(0, (c.material.opacity || 0) - 0.07); }
+          });
+          old.userData.opacity -= 0.07;
+          if (old.userData.opacity <= 0) { clearInterval(fadeOut); scene.remove(old); }
+        }, 16);
+      }
+
+      scene.add(newGroup);
+      currentGroup = newGroup;
+
+      // Fade in
+      const fadeIn = setInterval(() => {
+        newGroup.userData.opacity = Math.min(1, (newGroup.userData.opacity || 0) + 0.06);
+        const o = newGroup.userData.opacity;
+        newGroup.traverse(c => {
+          if (c.material && c.material.opacity !== undefined) {
+            c.material.opacity = Math.min(c.material.userData.baseOpacity || c.material.opacity, o * (c.material.userData.baseOpacity || 0.9));
+          }
+        });
+        if (newGroup.userData.opacity >= 1) clearInterval(fadeIn);
+      }, 16);
+
+      // Store base opacities
+      newGroup.traverse(c => { if (c.material) c.material.userData.baseOpacity = c.material.opacity; });
+
+      // Update CSS glow color
+      const hexToRgb = {
+        branding: '255,215,0', creative: '255,107,157', web: '37,99,235',
+        marketing: '52,211,153', retention: '251,146,60', aivirtual: '167,139,250', aibot: '34,211,238'
+      };
+      const rgb = hexToRgb[key] || '37,99,235';
+      canvas.style.filter = `drop-shadow(0 0 22px rgba(${rgb},0.7)) drop-shadow(0 0 55px rgba(${rgb},0.3))`;
+    }
+
+    // Initial load
+    loadService('branding');
+
+    // Expose globally for service switcher
+    window.holoLoadService = loadService;
+
+    let time = 0;
+    (function render() {
+      time += 0.012;
+      floatT += 0.018;
+
+      if (currentGroup) {
+        currentGroup.rotation.y = time * 0.55;
+        currentGroup.rotation.x = Math.sin(time * 0.3) * 0.12;
+      }
+
+      // Float canvas up/down
+      const floatY = Math.sin(floatT) * 10;
+      canvas.style.transform = `translate(-50%, calc(-58% + ${floatY.toFixed(1)}px))`;
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+    })();
+  })();
+
+  /* â•â•â•â•â•â•â• ANALYZING CARD â•â•â•â•â•â•â• */
+  (function () {
+    const container = document.getElementById('ana-vis'); if (!container) return;
+    const canvas = document.createElement('canvas'); canvas.width = 100; canvas.height = 100;
+    canvas.style.width = '100%'; canvas.style.height = '100%'; container.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    function draw() {
+      ctx.clearRect(0, 0, 100, 100); const t = Date.now() * .002;
+      ctx.strokeStyle = '#2563EB'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(50, 50, 40, 0, Math.PI * 2); ctx.stroke();
+      for (let i = 0; i < 2; i++) { const x = i === 0 ? 35 : 65, h = 4 + Math.sin(t * 2 + i) * 2; ctx.strokeRect(x - 5, 40 - h / 2, 10, h); }
+      for (let i = 0; i < 5; i++) { const y = (t * 20 + i * 20) % 100; ctx.globalAlpha = .15; ctx.beginPath(); ctx.moveTo(10, y); ctx.lineTo(90, y); ctx.stroke(); }
+      ctx.globalAlpha = 1; requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  /* â•â•â•â•â•â•â• SERVICE CANVAS ANIMATIONS â•â•â•â•â•â•â• */
+  function makeServiceCanvas(id, type, isIT) {
+    const c = document.getElementById(id); if (!c) return;
+    const ctx = c.getContext('2d'), W = c.width, H = c.height;
+    let t = 0, hov = false;
+    const card = c.closest('.svc');
+    if (card) { card.addEventListener('mouseenter', () => hov = true); card.addEventListener('mouseleave', () => hov = false); }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H); t += hov ? .05 : .02;
+      ctx.fillStyle = '#03030e'; ctx.fillRect(0, 0, W, H);
+
+      if (type === 'code') {
+        const cols = 12, cw = W / cols;
+        for (let c2 = 0; c2 < cols; c2++) {
+          const chars = ['<', '>', '/', '0', '1', '{', '}', '#', '@', 'â†’'];
+          const cy2 = ((t * 18 + c2 * 22) % H);
+          ctx.fillStyle = `rgba(37,99,235,${.15 + Math.sin(t + c2) * .05})`;
+          ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
+          ctx.fillText(chars[Math.floor((t + c2 * 3)) % chars.length], c2 * cw + cw / 2, cy2);
+          ctx.fillStyle = 'rgba(147,197,253,.7)';
+          ctx.fillText(chars[(Math.floor(t * 2) + c2) % chars.length], c2 * cw + cw / 2, cy2 - 10);
+        }
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath(); ctx.moveTo(0, 20 + i * 28); ctx.lineTo(W * .6, 20 + i * 28); ctx.lineTo(W * .6, 20 + i * 28 + 14); ctx.lineTo(W, 20 + i * 28 + 14);
+          ctx.strokeStyle = `rgba(37,99,235,.1)`; ctx.lineWidth = 1; ctx.stroke();
+        }
+      }
+      if (type === 'shield') {
+        for (let row = 0; row < 3; row++) for (let col = 0; col < 4; col++) {
+          const hx = col * 28 + (row % 2) * 14 + 10, hy = row * 24 + 8;
+          ctx.beginPath();
+          for (let a = 0; a < 6; a++) { const ax = hx + 10 * Math.cos(a * Math.PI / 3 - Math.PI / 6), ay = hy + 10 * Math.sin(a * Math.PI / 3 - Math.PI / 6); a === 0 ? ctx.moveTo(ax, ay) : ctx.lineTo(ax, ay); }
+          ctx.closePath(); ctx.strokeStyle = `rgba(37,99,235,.1)`; ctx.lineWidth = .5; ctx.stroke();
+        }
+        const sx = W / 2, sy = H / 2 - 10;
+        ctx.beginPath(); ctx.moveTo(sx, sy - 36); ctx.lineTo(sx + 26, sy - 22); ctx.lineTo(sx + 26, sy + 6); ctx.lineTo(sx, sy + 30); ctx.lineTo(sx - 26, sy + 6); ctx.lineTo(sx - 26, sy - 22); ctx.closePath();
+        ctx.strokeStyle = `rgba(37,99,235,${.6 + Math.sin(t) * .2})`; ctx.lineWidth = 1.5; ctx.stroke();
+        const scanY = sy - 36 + ((t * 15) % 66);
+        ctx.fillStyle = 'rgba(37,99,235,.08)'; ctx.fillRect(sx - 26, scanY, 52, 2);
+      }
+      if (type === 'data') {
+        const bars = [.4, .7, .55, .9, .65, .85, .75, 1];
+        bars.forEach((h, i) => {
+          const bx = 8 + i * 18, bh = (H - 20) * h * .65;
+          const g = ctx.createLinearGradient(0, H - bh - 10, 0, H - 10);
+          g.addColorStop(0, 'rgba(37,99,235,.8)'); g.addColorStop(1, 'rgba(37,99,235,.08)');
+          ctx.fillStyle = g; ctx.fillRect(bx, H - bh - 10, 12, bh);
+          ctx.fillStyle = 'rgba(147,197,253,.9)'; ctx.fillRect(bx, H - bh - 10, 12, 2);
+        });
+        const nodes = [[100, 25], [140, 45], [100, 65], [140, 85]];
+        nodes.forEach(([nx, ny], i) => {
+          ctx.beginPath(); ctx.arc(nx, ny, 4, 0, Math.PI * 2); ctx.fillStyle = `rgba(37,99,235,${.5 + Math.sin(t + i) * .2})`; ctx.fill();
+          if (i < nodes.length - 1) { ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(nodes[i + 1][0], nodes[i + 1][1]); ctx.strokeStyle = 'rgba(37,99,235,.2)'; ctx.lineWidth = 1; ctx.stroke(); }
+        });
+      }
+      if (type === 'qa') {
+        ctx.beginPath();
+        for (let x = 0; x < W; x++) { const y = H / 2 + Math.sin((x * .06) + t) * 20 + Math.sin((x * .12) + t * 1.5) * 10; x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+        ctx.strokeStyle = 'rgba(37,99,235,.7)'; ctx.lineWidth = 1.5; ctx.stroke();
+        for (let i = 0; i < 3; i++) {
+          const cx2 = 30 + i * 60, cy2 = H / 2 - 20;
+          ctx.beginPath(); ctx.moveTo(cx2 - 8, cy2); ctx.lineTo(cx2 - 3, cy2 + 8); ctx.lineTo(cx2 + 8, cy2 - 8);
+          ctx.strokeStyle = `rgba(147,197,253,${.5 + Math.sin(t + i) * .3})`; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.stroke();
+        }
+      }
+      if (type === 'sales') {
+        ctx.beginPath(); ctx.moveTo(10, H - 20); ctx.lineTo(W - 10, 20);
+        ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 1; ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
+        [.3, .5, .4, .65, .55, .8, .7, .95].forEach((h, i) => {
+          const bh = (H - 30) * h * .6;
+          ctx.fillStyle = `rgba(255,255,255,${.06 + h * .1})`; ctx.fillRect(8 + i * 17, H - bh - 20, 12, bh);
+          ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(8 + i * 17, H - bh - 20, 12, 1.5);
+        });
+      }
+      if (type === 'hr') {
+        [[W / 2 - 40, H / 2 - 10], [W / 2, H / 2 - 20], [W / 2 + 40, H / 2 - 10]].forEach(([px, py], i) => {
+          ctx.beginPath(); ctx.arc(px, py - 15, 10, 0, Math.PI * 2); ctx.strokeStyle = `rgba(255,255,255,${.3 + Math.sin(t + i) * .15})`; ctx.lineWidth = 1.5; ctx.stroke();
+          ctx.beginPath(); ctx.arc(px, py + 12, 14, Math.PI, 0); ctx.stroke();
+          if (i < 2) { ctx.beginPath(); ctx.moveTo(px + 14, py - 15); ctx.lineTo(px + 26, py - 15); ctx.strokeStyle = 'rgba(255,255,255,.1)'; ctx.lineWidth = 1; ctx.stroke(); }
+        });
+      }
+      if (type === 'finance') {
+        const candles = [{ o: 80, c: 60, h: 90, l: 50 }, { o: 55, c: 70, h: 78, l: 48 }, { o: 72, c: 65, h: 80, l: 58 }, { o: 63, c: 90, h: 96, l: 58 }, { o: 88, c: 75, h: 95, l: 70 }, { o: 73, c: 95, h: 100, l: 68 }];
+        candles.forEach((cd, i) => {
+          const x = 15 + i * 26, scale = .7;
+          const y1 = H - cd.l * scale - 5, y2 = H - cd.h * scale - 5;
+          ctx.beginPath(); ctx.moveTo(x + 6, y2); ctx.lineTo(x + 6, y1); ctx.strokeStyle = 'rgba(255,255,255,.3)'; ctx.lineWidth = 1; ctx.stroke();
+          const top = H - Math.max(cd.o, cd.c) * scale - 5, bot = H - Math.min(cd.o, cd.c) * scale - 5;
+          ctx.fillStyle = cd.c > cd.o ? 'rgba(34,197,94,.5)' : 'rgba(255,255,255,.25)'; ctx.fillRect(x, top, 12, bot - top);
+        });
+      }
+      if (type === 'ops') {
+        const nodes2 = [[W * .2, H * .3], [W * .5, H * .2], [W * .8, H * .3], [W * .35, H * .65], [W * .65, H * .65], [W * .5, H * .8]];
+        const edges = [[0, 1], [1, 2], [0, 3], [2, 4], [3, 5], [4, 5], [1, 3], [1, 4]];
+        edges.forEach(([a, b]) => {
+          ctx.beginPath(); ctx.moveTo(nodes2[a][0], nodes2[a][1]); ctx.lineTo(nodes2[b][0], nodes2[b][1]);
+          ctx.strokeStyle = `rgba(255,255,255,.05)`; ctx.lineWidth = 1; ctx.stroke();
+          const flow = (t * .5) % 1;
+          ctx.beginPath(); ctx.arc(nodes2[a][0] + (nodes2[b][0] - nodes2[a][0]) * flow, nodes2[a][1] + (nodes2[b][1] - nodes2[a][1]) * flow, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fill();
+        });
+        nodes2.forEach(([nx, ny], i) => {
+          ctx.beginPath(); ctx.arc(nx, ny, 5 + Math.sin(t + i) * 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${.2 + Math.sin(t * 2 + i) * .1})`; ctx.fill();
+          ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1; ctx.stroke();
+        });
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  makeServiceCanvas('sc0', 'code', true);
+  makeServiceCanvas('sc1', 'shield', true);
+  makeServiceCanvas('sc2', 'data', true);
+  makeServiceCanvas('sc3', 'qa', true);
+  makeServiceCanvas('sc4', 'sales', false);
+  makeServiceCanvas('sc5', 'hr', false);
+  makeServiceCanvas('sc6', 'finance', false);
+  makeServiceCanvas('sc7', 'ops', false);
+
+  /* â•â•â•â•â•â•â• PROJECT CARD CANVASES â•â•â•â•â•â•â• */
+  function makeProjectCanvas(id, theme) {
+    const c = document.getElementById(id); if (!c) return;
+    const ctx = c.getContext('2d'), W = c.width, H = c.height; let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#03030e'; ctx.fillRect(0, 0, W, H); t += .014;
+      for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.moveTo(0, i * 40); ctx.lineTo(W, i * 40); ctx.strokeStyle = 'rgba(30,58,138,.05)'; ctx.lineWidth = 1; ctx.stroke(); }
+      for (let i = 0; i < 9; i++) { ctx.beginPath(); ctx.moveTo(i * 40, 0); ctx.lineTo(i * 40, H); ctx.strokeStyle = 'rgba(30,58,138,.05)'; ctx.lineWidth = 1; ctx.stroke(); }
+      if (theme === 'fintech') {
+        for (let r = 0; r < 5; r++) {
+          const w = 40 + Math.sin(r) * 30, x = Math.cos(r) * 20 + 10;
+          ctx.fillStyle = `rgba(30,58,138,.07)`; ctx.fillRect(x, 30 + r * 36, w + 40, 10);
+          ctx.fillStyle = 'rgba(37,99,235,.12)'; ctx.fillRect(x + w + 48, 30 + r * 36, 30, 10);
+        }
+        const g = ctx.createRadialGradient(W * .7, H * .4, 0, W * .7, H * .4, 100);
+        g.addColorStop(0, 'rgba(30,58,138,.2)'); g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      }
+      if (theme === 'retail') {
+        for (let r = 0; r < 3; r++) for (let co = 0; co < 4; co++) {
+          ctx.strokeStyle = `rgba(255,255,255,.06)`; ctx.lineWidth = .5; ctx.strokeRect(20 + co * 70, 20 + r * 55, 55, 40);
+          ctx.fillStyle = 'rgba(255,255,255,.02)'; ctx.fillRect(20 + co * 70, 20 + r * 55, 55, 40);
+        }
+        const g = ctx.createRadialGradient(W * .3, H * .6, 0, W * .3, H * .6, 80);
+        g.addColorStop(0, 'rgba(255,255,255,.06)'); g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      }
+      if (theme === 'health') {
+        ctx.beginPath();
+        for (let x2 = 0; x2 < W; x2++) {
+          const p = x2 / W; let y2 = H / 2;
+          if (p > .3 && p < .35) y2 = H / 2 - 50; else if (p > .35 && p < .42) y2 = H / 2 + 30; else if (p > .42 && p < .46) y2 = H / 2 - 20;
+          else if (p > .65 && p < .7) y2 = H / 2 - 50; else if (p > .7 && p < .77) y2 = H / 2 + 30; else if (p > .77 && p < .81) y2 = H / 2 - 20;
+          x2 === 0 ? ctx.moveTo(x2, y2) : ctx.lineTo(x2, y2);
+        }
+        ctx.strokeStyle = 'rgba(37,99,235,.6)'; ctx.lineWidth = 2; ctx.stroke();
+        const sl = (t * 40) % W; ctx.fillStyle = 'rgba(37,99,235,.1)'; ctx.fillRect(sl, 0, 3, H);
+      }
+      if (theme === 'bank') {
+        const pts = [];
+        for (let i = 0; i < W; i += 8)pts.push({ x: i, y: H * .6 - Math.sin(i * .02 + t) * 30 - i * .08 });
+        ctx.beginPath(); pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.strokeStyle = 'rgba(37,99,235,.6)'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fillStyle = 'rgba(30,58,138,.06)'; ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  /* â•â• REVIEW MODAL â•â• */
+  const reviewData = {
+    keerthana: {
+      avatar: 'A', name: 'Keerthana', role: 'Founder & CEO',
+      company: 'Rokea · D2C Consumer Tech',
+      review: 'SkillStar completely upgraded our brand identity and launched our performance marketing campaigns. They tripled our revenue in under 5 months. Exceptional team, exceptional results!'
+    },
+    aishwariya: {
+      avatar: 'P', name: 'Aishwariya', role: 'Co-Founder',
+      company: 'Inner Compass · Wellness & Mental Health',
+      review: 'Working with SkillStar was a game-changer. They built our digital marketing and brand strategy, crafting messaging that built real trust with our audience. Our community grew 4X!'
+    },
+    sarankumar: {
+      avatar: 'K', name: 'Saran kumar', role: 'Director',
+      company: 'Seeds Therapy · Healthcare',
+      review: 'SkillStar\'s SEO and GEO optimization elevated Seeds Therapy to a recognisable name. The organic traffic and local search visibility they built for us is nothing short of exceptional.'
+    },
+    ravis: {
+      avatar: 'R', name: 'Ravi S.', role: 'Operations Head',
+      company: 'Rokea Partner · E-Commerce',
+      review: 'SkillStar\'s web development team built our custom storefront, and their SEO strategy got us ranking for high-value keywords. Their work directly boosted our conversion rates by 50%.'
+    },
+    meerat: {
+      avatar: 'M', name: 'Meera T.', role: 'Owner',
+      company: 'Seeds Client · Wellness Center',
+      review: 'The UI/UX design and brand upgrading from SkillStar gave our business a premium, modern feel. Their team is highly creative and extremely professional in branding and creative solutions.'
+    },
+    sanjayk: {
+      avatar: 'S', name: 'Sanjay K.', role: 'Marketing Director',
+      company: 'Inner Compass · Tech platform',
+      review: 'SkillStar executed our digital marketing and social media creative campaigns flawlessly. Their team thinks like growth partners, and their conversion funnel optimization was key to our success.'
+    },
+    arjun: {
+      avatar: 'A', name: 'arjun', role: 'Founder',
+      company: 'Rokea · D2C Consumer Tech',
+      review: 'SkillStar developed our enterprise web platform and integrated advanced AI automation. The performance is top-notch, and our customer support workflows are now fully automated!'
+    },
+    priya: {
+      avatar: 'P', name: 'Priya', role: 'Co-Founder',
+      company: 'Inner Compass · Wellness',
+      review: 'We hired SkillStar for SEO, AEO, and Google Ads management. They optimized our website for AI search engines, resulting in high-quality organic leads and massive search visibility.'
+    },
+    drkavya: {
+      avatar: 'K', name: 'Dr. Kavya', role: 'Director',
+      company: 'Seeds Therapy · Healthcare',
+      review: 'Excellent service in UI/UX experience design and brand upgrading. SkillStar understood our medical clinic\'s unique needs and created a digital presence that builds immediate trust.'
+    },
+    ravikumar: {
+      avatar: 'R', name: 'Ravi kumar', role: 'Product Lead',
+      company: 'Rokea Consumer Tech',
+      review: 'SkillStar transformed our brand presence with their digital marketing campaigns. Their performance ads and video production drove a 3.5X return on ad spend on our latest launch.'
+    },
+    karthikeyeni: {
+      avatar: 'K', name: 'Karthikeyeni', role: 'Founder',
+      company: 'Seeds Therapy · Wellness Platform',
+      review: 'The web development capabilities of SkillStar are outstanding. They created a fast, highly secure business website for us that has significantly improved our brand image and sales.'
+    },
+    vijay: {
+      avatar: 'V', name: 'Vijay', role: 'Operations Manager',
+      company: 'Inner Compass · Wellness Services',
+      review: 'Our search engine optimization and local SEO rankings saw a huge boost after partnering with SkillStar. They got us ranking #1 for localized search queries, driving constant new inquiries.'
+    }
+  };
+
+  function openReview(el, key) {
+    if (typeof el === 'string') {
+      key = el;
+      el = null;
+    }
+    const d = reviewData[key];
+    if (!d) return;
+
+    let avatar = d.avatar;
+    let name = d.name;
+    let company = d.company;
+    let hasImg = false;
+    let imgSrc = '';
+
+    if (el) {
+      const elAvatar = el.querySelector('.testi-profile-img');
+      const elName = el.querySelector('.testi-profile-name');
+      const elCompany = el.querySelector('.testi-profile-co');
+
+      if (elName) name = elName.textContent.trim();
+
+      if (elAvatar) {
+        const img = elAvatar.querySelector('img');
+        if (img) {
+          hasImg = true;
+          imgSrc = img.src;
+        } else {
+          avatar = elAvatar.textContent.trim() || name.charAt(0).toUpperCase();
+        }
+      }
+
+      if (elCompany) {
+        const cardCo = elCompany.textContent.trim();
+        if (cardCo.toLowerCase() === 'client') {
+          company = d.company;
+        } else if (d.company.toLowerCase().includes(cardCo.toLowerCase())) {
+          company = d.company;
+        } else {
+          company = cardCo;
+        }
+      }
+    }
+
+    const rmAvatar = document.getElementById('rm-avatar');
+    if (hasImg) {
+      rmAvatar.innerHTML = `<img src="${imgSrc}" alt="${name}">`;
+    } else {
+      rmAvatar.textContent = avatar;
+    }
+
+    document.getElementById('rm-name').textContent = name;
+    document.getElementById('rm-role').textContent = d.role;
+    document.getElementById('rm-company').textContent = company;
+    document.getElementById('rm-review').textContent = d.review;
+    document.getElementById('review-modal-bg').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReviewModal() {
+    document.getElementById('review-modal-bg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('review-modal-bg').addEventListener('click', function (e) {
+    if (e.target === this) closeReviewModal();
+  });
+  document.getElementById('rm-close-btn').addEventListener('click', closeReviewModal);
+
+
+  /* â• â•  CONTACT POPUP â€” 5 seconds â• â•  */
+  setTimeout(() => {
+    const bg = document.getElementById('contact-popup-bg');
+    if (bg) {
+      bg.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }, 5000);
+
+  function closeContactPopup() {
+    document.getElementById('contact-popup-bg').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('popup-skip-btn').addEventListener('click', closeContactPopup);
+  document.getElementById('popup-close-btn').addEventListener('click', closeContactPopup);
+  document.getElementById('contact-popup-bg').addEventListener('click', function (e) {
+    if (e.target === this) closeContactPopup();
+  });
+  document.getElementById('popup-contact-link').addEventListener('click', closeContactPopup);
+
+  makeProjectCanvas('pc0', 'fintech');
+  makeProjectCanvas('pc1', 'retail');
+  makeProjectCanvas('pc2', 'health');
+  makeProjectCanvas('pc3', 'bank');
+
+  /* â•â• FAQ ACCORDION â•â• */
+  function toggleFaq(item) {
+    const body = item.querySelector('.faq-body');
+    const icon = item.querySelector('.faq-icon');
+    const isOpen = item.classList.contains('faq-open');
+
+    // Close all open FAQs
+    document.querySelectorAll('.faq-item.faq-open').forEach(el => {
+      el.querySelector('.faq-body').style.maxHeight = '0';
+      el.querySelector('.faq-icon').textContent = '+';
+      el.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+      el.style.borderColor = 'rgba(255,255,255,0.07)';
+      el.classList.remove('faq-open');
+    });
+
+    // Open clicked one if it was closed
+    if (!isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      icon.textContent = 'Ã—';
+      icon.style.transform = 'rotate(45deg)';
+      item.style.borderColor = 'rgba(37,99,235,0.4)';
+      item.classList.add('faq-open');
+    }
+  }
+
+  window.openReview = openReview;
+  window.toggleFaq = toggleFaq;
+});

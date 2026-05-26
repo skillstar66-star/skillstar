@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI & UX Projects - Gallery | SkillStar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 0; background: #050510; color: #fff; font-family: 'Inter', sans-serif;
+    }
+    .header { padding: 40px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .header h1 { font-family: 'Syne', sans-serif; color: #10b981; margin: 0 0 10px 0; font-size: 32px; }
+    .header p { color: rgba(255,255,255,0.6); margin: 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      aspect-ratio: 1;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox Modal CSS */
+    .lightbox-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .lightbox-bg.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .lightbox-bg.open .lightbox-content {
+      transform: scale(1);
+    }
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px; right: 0;
+      background: none; border: none;
+      color: #fff; font-size: 32px; cursor: pointer;
+      line-height: 1; opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>UI & UX Projects Gallery</h1>
+    <p>Social Media Carousels & Posters Design</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779446519/ss_3_copy.jpg_1_r8t4lc.jpg" alt="Gallery Image 1"></div>
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779445985/rk_saree_2.jpg_xp01go.jpg" alt="Gallery Image 2"></div>
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779445981/inner_5.1.jpg_tbwrqm.jpg" alt="Gallery Image 3"></div>
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779445980/calming_1.jpg_ynygid.jpg" alt="Gallery Image 4"></div>
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779445982/ic_session_poster_2.jpg_yikzw5.jpg" alt="Gallery Image 5"></div>
+    <div class="gallery-item"><img src="https://res.cloudinary.com/drkgkgiat/image/upload/v1779446656/ChatGPT_Image_Apr_27_2026_06_23_44_PM_a9dr76.png" alt="Gallery Image 6"></div>
+  </div>
+
+  <!-- Lightbox Structure -->
+  <div class="lightbox-bg" id="lightbox-bg">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close">&times;</button>
+      <img src="" alt="Popup Image" class="lightbox-img" id="lightbox-img">
+    </div>
+  </div>
+
+  <script>
+    const lightboxBg = document.getElementById('lightbox-bg');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxBg.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightboxBg.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!lightboxBg.classList.contains('open')) {
+          lightboxImg.src = '';
+        }
+      }, 400);
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxBg.addEventListener('click', (e) => {
+      if (e.target === lightboxBg) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxBg.classList.contains('open')) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

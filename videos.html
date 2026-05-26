@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Video Projects | SkillStar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Syne:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 0; background: #050510; color: #fff; font-family: 'Inter', sans-serif;
+    }
+    .header { padding: 40px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .header h1 { font-family: 'Syne', sans-serif; color: #a855f7; margin: 0 0 10px 0; font-size: 32px; }
+    .header p { color: rgba(255,255,255,0.6); margin: 0; }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .video-item {
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      aspect-ratio: 16/9;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(168, 85, 247, 0.15);
+    }
+    .video-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #0a0a0a;
+      pointer-events: none;
+    }
+    /* Play overlay icon */
+    .video-item::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px; height: 64px;
+      background: rgba(168, 85, 247, 0.85);
+      border-radius: 50%;
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s ease, background 0.3s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 28px;
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.4);
+    }
+    .video-item:hover::after {
+      transform: translate(-50%, -50%) scale(1.12);
+      background-color: rgba(168, 85, 247, 1);
+    }
+
+    /* Video Modal CSS */
+    .video-modal-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .video-modal-bg.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .video-modal-content {
+      position: relative;
+      width: 90%;
+      max-width: 960px;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .video-modal-bg.open .video-modal-content {
+      transform: scale(1);
+    }
+    .video-modal-player {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 14px;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      box-shadow: 0 25px 60px -12px rgba(168, 85, 247, 0.2), 0 0 80px rgba(168, 85, 247, 0.08);
+      background: #0a0a0a;
+      outline: none;
+    }
+    .video-modal-close {
+      position: absolute;
+      top: -48px; right: 0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff; font-size: 24px; cursor: pointer;
+      line-height: 1; opacity: 0.8;
+      transition: opacity 0.2s, background 0.2s;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .video-modal-close:hover {
+      opacity: 1;
+      background: rgba(168, 85, 247, 0.3);
+    }
+
+    @media (max-width: 500px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+      }
+      .video-modal-content {
+        width: 95%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Video Editing Projects</h1>
+    <p>High-Retention & Visually Stunning Edits</p>
+  </div>
+  <div class="video-grid">
+    <!-- Placeholders for videos. Replace the source with your actual videos. -->
+    <div class="video-item">
+      <video muted preload="metadata" poster="https://res.cloudinary.com/dyfwiq4xo/video/upload/q_auto/f_auto/v1779771498/senthur_auto_mobil_11.5.26_video_1_yywdv7.jpg">
+        <source src="https://res.cloudinary.com/dyfwiq4xo/video/upload/q_auto/f_auto/v1779771498/senthur_auto_mobil_11.5.26_video_1_yywdv7.mp4#t=0.001" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-item">
+      <video muted poster="https://via.placeholder.com/800x450/111/a855f7?text=Upload+Video+2">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-item">
+      <video muted poster="https://via.placeholder.com/800x450/111/a855f7?text=Upload+Video+3">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+    <div class="video-item">
+      <video muted poster="https://via.placeholder.com/800x450/111/a855f7?text=Upload+Video+4">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <!-- Video Modal Structure -->
+  <div class="video-modal-bg" id="video-modal-bg">
+    <div class="video-modal-content">
+      <button class="video-modal-close" id="video-modal-close">&times;</button>
+      <video class="video-modal-player" id="video-modal-player" controls>
+        <source src="" type="video/mp4" id="video-modal-source">
+      </video>
+    </div>
+  </div>
+
+  <script>
+    const modalBg = document.getElementById('video-modal-bg');
+    const modalPlayer = document.getElementById('video-modal-player');
+    const modalSource = document.getElementById('video-modal-source');
+    const modalClose = document.getElementById('video-modal-close');
+
+    document.querySelectorAll('.video-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const videoEl = item.querySelector('video');
+        const src = videoEl.querySelector('source').getAttribute('src');
+        const poster = videoEl.getAttribute('poster');
+
+        modalSource.setAttribute('src', src);
+        modalPlayer.setAttribute('poster', poster || '');
+        modalPlayer.load();
+        modalBg.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        // Auto-play after a short delay for the animation
+        setTimeout(() => {
+          if (modalBg.classList.contains('open')) {
+            modalPlayer.play().catch(() => {});
+          }
+        }, 450);
+      });
+    });
+
+    function closeVideoModal() {
+      modalPlayer.pause();
+      modalPlayer.currentTime = 0;
+      modalBg.classList.remove('open');
+      document.body.style.overflow = '';
+      // Clear the source after transition ends to fully stop buffering
+      setTimeout(() => {
+        if (!modalBg.classList.contains('open')) {
+          modalSource.setAttribute('src', '');
+          modalPlayer.load();
+        }
+      }, 450);
+    }
+
+    modalClose.addEventListener('click', closeVideoModal);
+    modalBg.addEventListener('click', (e) => {
+      if (e.target === modalBg) {
+        closeVideoModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalBg.classList.contains('open')) {
+        closeVideoModal();
+      }
+    });
+  </script>
+</body>
+</html>

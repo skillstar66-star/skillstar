@@ -17,7 +17,7 @@ Allow: /
 # =========================================================================
 # SITEMAP
 # =========================================================================
-Sitemap: https://www.skillstar.com/sitemap.xml
+Sitemap:https://skillstardigitalsolutions.com/sitemap.xml
 
 # =========================================================================
 # CORE SERVICE DIRECTORIES (For Maximum Indexing Priority)
